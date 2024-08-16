@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { Schema } = mongoose; // Destructure Schema from mongoose
 
 const propertySchema = new mongoose.Schema({
     address: {
@@ -46,8 +47,12 @@ const propertySchema = new mongoose.Schema({
         type: String,
         enum: ['Single-Family', 'Multi-Family', 'Mix-Use'],
         required: true
-    }
-     
+    },
+    contact: {
+        type: Schema.Types.ObjectId,
+        ref: 'Contact', // Reference to the Contact model
+         }
+        
 });
 
 // Set MongoDB native validation rules

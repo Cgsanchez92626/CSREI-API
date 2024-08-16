@@ -10,6 +10,8 @@ const starterProperties = [
       parcelNumber: "4030-006-003",
       yearBuilt: 1956,
       propertyType: "Single-Family",
+      contact_firstname: "Ismael",
+      contact_lastname: "Sherif",
     },
     {
       address: "10532 Burl Ave",
@@ -20,6 +22,8 @@ const starterProperties = [
       parcelNumber: "4030-020-003",
       yearBuilt: 1956,
       propertyType: "Single-Family",
+      contact_firstname: "Abel",
+      contact_lastname: "Gomez",
     },
     {
       address: "319 Market St",
@@ -30,6 +34,8 @@ const starterProperties = [
       parcelNumber: "4030-111-003",
       yearBuilt: 1978,
       propertyType: "Multi-Family",
+      contact_firstname: "Michael",
+      contact_lastname: "Aboda",
     },
     {
       address: "321 Market St",
@@ -40,6 +46,8 @@ const starterProperties = [
       parcelNumber: "4030-111-004",
       yearBuilt: 1968,
       propertyType: "Multi-Family",
+      contact_firstname: "Patricia",
+      contact_lastname: "Grey",
       },
       {
       address: "10934 Grevillea Ave",
@@ -50,6 +58,8 @@ const starterProperties = [
       parcelNumber: "4220-001-004",
       yearBuilt: 2022,
       propertyType: "Multi-Family",
+      contact_firstname: "Bruno",
+      contact_lastname: "Mars",
       },
       {
         address: "4541 Don Tomaso Dr ",
@@ -60,6 +70,8 @@ const starterProperties = [
         parcelNumber: "5027-012-010",
         yearBuilt: 1956,
         propertyType: "Single-Family",
+        contact_firstname: "Jeremy",
+        contact_lastname: "White",
       },
       {
         address: "10532 Burl Ave",
@@ -70,6 +82,8 @@ const starterProperties = [
         parcelNumber: "4030-020-003",
         yearBuilt: 1961,
         propertyType: "Mix-Use",
+        contact_firstname: "Jeremy",
+        contact_lastname: "White",
       },
       {
         address: "3957 Hillcrest Dr ",
@@ -80,6 +94,8 @@ const starterProperties = [
         parcelNumber: "5030-014-008",
         yearBuilt: 1955,
         propertyType: "Multi-Family",
+        contact_firstname: "Jeremy",
+        contact_lastname: "White",
       },
       {
         address: "3878 Bronson Ave ",
@@ -90,6 +106,8 @@ const starterProperties = [
         parcelNumber: "5033-002-018",
         yearBuilt: 1959,
         propertyType: "Multi-Family",
+        contact_firstname: "Lex",
+        contact_lastname: "Johnson",
         },
         {
         address: "4318 Leimert Blvd ",
@@ -100,7 +118,10 @@ const starterProperties = [
         parcelNumber: "5023-008-014",
         yearBuilt: 1931,
         propertyType: "Multi-Family",
+        contact_firstname: "Ariella",
+        contact_lastname: "Santos",
         },
+
 ];
   
   module.exports = starterProperties;

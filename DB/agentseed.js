@@ -1,5 +1,6 @@
 const starterAgents = [
   {
+    agent_id: 1,
     firstname: "Carey",
     lastname: "Jones",
     phone: "310-213-0001",
@@ -7,6 +8,7 @@ const starterAgents = [
     password: "pwd123",
   },
   {
+    agent_id: 2,
     firstname: "Sam",
     lastname: "Bailey",
     phone: "310-213-0001",
@@ -14,6 +16,7 @@ const starterAgents = [
     password: "pwd456",
   },
   {
+    agent_id: 3,
     firstname: "Carmen",
     lastname: "Sanchez",
     phone: "949-355-5899",
@@ -21,6 +24,7 @@ const starterAgents = [
     password: "pwd789",
   },
   {
+    agent_id: 4,
     firstname: "Olive",
     lastname: "Popeye",
     phone: "310-213-0001",
@@ -28,6 +32,7 @@ const starterAgents = [
     password: "pwd223",
   },
   {
+    agent_id: 5,
     firstname: "Jack",
     lastname: "Sparrow",
     phone: "310-213-0001",
@@ -35,6 +40,7 @@ const starterAgents = [
     password: "pwd233",
   },
   {
+    agent_id: 6,
     firstname: "Donald",
     lastname: "Duck",
     phone: "310-213-0001",
