@@ -36,9 +36,9 @@ app.get("/", (req, res) => {
   res.send("Home route!");
 });
 
-
 // Define a global variable to store the agentMap
 let agentMap = {};
+let contactMap = {};
 
 // Seed Agents
 app.get("/agent/seed", async (req, res) => {
@@ -48,50 +48,132 @@ app.get("/agent/seed", async (req, res) => {
 
     // Create a map of email to _id
     agentMap = agents.reduce((map, agent) => {
-      map[agent.email] = { agent_id: starterAgents.find(a => a.email === agent.email)?.agent_id, _id: agent._id };
+      map[agent.email] = {
+        agent_id: starterAgents.find((a) => a.email === agent.email)?.agent_id,
+        _id: agent._id,
+      };
       return map;
     }, {});
 
     console.log(`Inserted Agents: ${agents.length}`);
     res.json({ agents, agentMap }); // Return agent map for verification
   } catch (error) {
-    console.log(`Something went wrong loading Agent seed data: ${error.message}`);
+    console.log(
+      `Something went wrong loading Agent seed data: ${error.message}`
+    );
     res.status(500).json({ error: error.message });
   }
 });
 
-
 // Seed Contacts
 app.get("/contact/seed", async (req, res) => {
-    try {
-      await Contact.deleteMany({}); // Delete all existing contacts
-  
-      // Ensure agentMap is populated
-      if (Object.keys(agentMap).length === 0) {
-        return res.status(500).json({ error: 'Agent map is not available.' });
+  try {
+    await Contact.deleteMany({}); // Delete all existing contacts
+
+    // Ensure agentMap is populated
+    if (Object.keys(agentMap).length === 0) {
+      return res.status(500).json({ error: "Agent map is not available." });
+    }
+
+    // Modify contacts with agent _id
+    const contactsWithId = starterContacts.map((contact) => {
+      const agentData = agentMap[contact.agent_email];
+      if (!agentData) {
+        console.warn(`No agent found for email ${contact.agent_email}`);
       }
-  
-      // Modify contacts with agent _id
-      const contactsWithId = starterContacts.map(contact => {
-        const agentData = agentMap[contact.agent_email];
-        if (!agentData) {
-          console.warn(`No agent found for email ${contact.agent_email}`);
+      return {
+        ...contact,
+        agent: agentData ? agentData._id : null, // Replace agent_email with _id
+      };
+    });
+
+    const contacts = await Contact.create(contactsWithId); // Create new contacts
+
+    // Create a map of contact name to _id
+    contactMap = contacts.reduce((map, contact) => {
+      map[`${contact.firstname}_${contact.lastname}`] = contact._id;
+      return map;
+    }, {});
+
+    console.log(`Inserted Contacts: ${contacts.length}`);
+    res.json({ contacts, contactMap });
+    
+  } catch (error) {
+    console.log(
+      `Something went wrong loading Contact seed data: ${error.message}`
+    );
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Seed Properties
+app.get("/property/seed", async (req, res) => {
+  try {
+    await Property.deleteMany({}); // Delete all existing properties
+
+    // Ensure contactMap is populated
+    if (Object.keys(contactMap).length === 0) {
+      return res.status(500).json({ error: "Contact map is not available." });
+    }
+
+    // Modify properties with contact _id
+    const propertiesWithId = starterProperties.map((property) => {
+      const contactKey = `${property.contact_firstname}_${property.contact_lastname}`;
+      const contactId = contactMap[contactKey];
+      if (!contactId) {
+        console.warn(`No contact found for ${contactKey}`);
+      }
+      return {
+        ...property,
+        contact: contactId || null, // Replace contact names with _id
+      };
+    });
+
+    const properties = await Property.create(propertiesWithId); // Create new properties
+    console.log(`Inserted Properties: ${properties.length}`);
+    res.json(properties);
+  } catch (error) {
+    console.log(
+      `Something went wrong loading Property seed data: ${error.message}`
+    );
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update Contacts with Property References
+app.get("/contact/update-properties", async (req, res) => {
+    try {
+      const properties = await Property.find({}).exec();
+      
+      // Create a map of contact _id to property _ids
+      const contactPropertyMap = properties.reduce((map, property) => {
+        if (property.contact) {
+          if (!map[property.contact.toString()]) {
+            map[property.contact.toString()] = [];
+          }
+          map[property.contact.toString()].push(property._id);
         }
-        return {
-          ...contact,
-          agent: agentData ? agentData._id : null, // Replace agent_email with _id
-        };
-      });
+        return map;
+      }, {});
   
-      const contacts = await Contact.create(contactsWithId); // Create new contacts
-      console.log(`Inserted Contacts: ${contacts.length}`);
-      res.json(contacts);
+      // Update contacts with their properties
+      await Promise.all(
+        Object.keys(contactPropertyMap).map(async (contactId) => {
+          await Contact.updateOne(
+            { _id: contactId },
+            { $set: { properties: contactPropertyMap[contactId] } }
+          );
+        })
+      );
+  
+      console.log('Updated Contacts with properties.');
+      res.json({ message: 'Contacts updated with properties successfully.' });
     } catch (error) {
-      console.log(`Something went wrong loading Contact seed data: ${error.message}`);
+      console.log(`Something went wrong updating contacts with properties: ${error.message}`);
       res.status(500).json({ error: error.message });
     }
   });
-
+  
 // Error handling middleware - should be defined after all route handlers
 app.use((err, req, res, next) => {
   // Mongoose validation error
