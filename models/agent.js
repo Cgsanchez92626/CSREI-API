@@ -46,6 +46,11 @@ const agentSchema = new mongoose.Schema({
   },
 });
 
+// Add a method to compare passwords
+agentSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
+
 agentSchema.pre('save', async function (next) {
   if (this.isModified('password') || this.isNew) {
     try {

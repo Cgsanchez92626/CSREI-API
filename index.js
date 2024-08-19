@@ -27,12 +27,19 @@ const starterProperties = require("./DB/propertyseed");
 
 conn(); // Calling the connection function
 
-app.use("/api/auth", authRoutes);
+
 // Apply middleware to protected routes
 app.use("/api/protected", authMiddleware, protectedRoutes);
 
 app.use(express.json()); // to allow usage of req.body
-app.use(cors()); //controls access to the API
+
+//controls access to the API
+app.use(cors({
+  origin: 'http://localhost:5173', // Your frontend's origin
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+})); 
+app.use("/api/auth", authRoutes);
 app.use("/api/agents", agentRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/properties", propertyRoutes);

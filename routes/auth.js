@@ -8,6 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET; // Secret key for JWT
 
 // Login route
 router.post("/login", async (req, res) => {
+  console.log("Hello")
   try {
     const { email, password } = req.body;
     const agent = await Agent.findOne({ email });

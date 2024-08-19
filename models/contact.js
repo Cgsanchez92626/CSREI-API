@@ -14,6 +14,11 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+    contact_status: {
+        type: String,
+        enum: ['Lead', 'Prospect', 'Research', 'DNC'],
+        required: true
+    },
   email: {
     type: String,
     required: false,
@@ -69,7 +74,7 @@ contactSchema.set("validate", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["firstname", "lastname", "contact_type","agent_id"],
+      required: ["firstname", "lastname", "contact_type",, "contact_status","agent_id"],
       properties: {
         firstname: {
           bsonType: "string",
@@ -79,7 +84,11 @@ contactSchema.set("validate", {
           bsonType: "string",
           description: "must be a string and is required",
         },
-        contact_type: {
+          contact_type: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        contact_status: {
           bsonType: "string",
           description: "must be a string and is required",
         },

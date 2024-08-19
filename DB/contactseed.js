@@ -1,71 +1,79 @@
 const starterContacts = [
-  { 
+  {
     firstname: "Ismael",
     lastname: "Sherif",
     contact_type: "Owner",
+    contact_status: "Prospect",
     email: "isherif@nonya.com",
     phone: "310-213-0001",
     last_contact_dt: "2023/06/23",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Abel",
     lastname: "Gomez",
     contact_type: "Owner",
+    contact_status: "Prospect",
     email: "agomez@nonya.com",
     phone: "310-999-0001",
     last_contact_dt: "2023/07/23",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Michael",
     lastname: "Aboda",
     contact_type: "Owner",
+    contact_status: "Prospect",
     email: "maboda64@gmail.com",
     phone: "310-999-4401",
     last_contact_dt: "2023/07/23",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Patricia",
     lastname: "Grey",
     contact_type: "Owner",
+    contact_status: "Research",
     email: "",
     phone: "",
     last_contact_dt: "2024/02/23",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Bruno",
     lastname: "Mars",
     contact_type: "Owner",
+    contact_status: "Lead",
     email: "bmars@nonya.com",
     phone: "310-213-0881",
     last_contact_dt: "202/06/01",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Jeremy",
     lastname: "White",
     contact_type: "Owner",
+    contact_status: "Lead",
     email: "jwhite@nonya.com",
     phone: "310-988-0001",
     last_contact_dt: "2023/08/23",
     agent_email: "carmensanchezrei@gmail.com",
   },
-  { 
+  {
     firstname: "Lex",
     lastname: "Johnson",
     contact_type: "Owner",
+    contact_status: "Lead",
     email: "ljohnson4@gmail.com",
     phone: "310-922-4401",
     last_contact_dt: "2024/03/10",
     agent_email: "jsparrow@rei.com",
   },
-  { 
+  {
     firstname: "Ariella",
     lastname: "Santos",
     contact_type: "Owner",
+    contact_status: "Research",
     email: "",
     phone: "",
     last_contact_dt: "2024/02/23",
