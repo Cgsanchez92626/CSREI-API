@@ -11,5 +11,6 @@ Uses seed data to load the 3 collections and establish referential integrity acr
 3. /property/seed - loads propertySchema and uses the contactMap to load values for referential integrity to contactSchema
 4. /contact/update-properties - Creates a map of contact \_ids to arrays of property \_ids, and updates each contact document to include this array of property references.
 
+
 All CRUD routes have been created and tested via Postman: https://sba-318-reic-api-team.postman.co/workspace/SBA-318-REIC-API-Team-Workspace~2a7cd160-f7e4-432d-8903-d297c3b20fa3/request/36935542-59b6e831-1320-4fe7-85ba-e193ac5f3329?action=share&creator=36935542&ctx=documentation - you can use all these paths for testing, leave the old ID's to test the error handling and just change any ID values that you are working with to test successful DB conditions.# CSREI-API
 Endpoints and descriptions:

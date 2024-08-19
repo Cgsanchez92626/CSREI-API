@@ -1,8 +1,14 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT;
 const conn = require("./DB/conn");
+
+//Import Auth Data
+const authRoutes = require("./routes/auth");
+const protectedRoutes = require('./routes/protected'); // Example protected routes
+const authMiddleware = require('./middleware/authMiddleware'); // Import your middleware
 
 //Import Agent Data
 const agentRoutes = require("./routes/agent");
@@ -21,12 +27,12 @@ const starterProperties = require("./DB/propertyseed");
 
 conn(); // Calling the connection function
 
-// Middleware to use express react views
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'jsx');
-// app.engine('jsx', require('express-react-views').createEngine());
+app.use("/api/auth", authRoutes);
+// Apply middleware to protected routes
+app.use("/api/protected", authMiddleware, protectedRoutes);
 
 app.use(express.json()); // to allow usage of req.body
+app.use(cors()); //controls access to the API
 app.use("/api/agents", agentRoutes);
 app.use("/api/contacts", contactRoutes);
 app.use("/api/properties", propertyRoutes);
