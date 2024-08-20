@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET; // Secret key for JWT
 
 // Login route
 router.post("/login", async (req, res) => {
-  console.log("Hello")
+  console.log("Hello");
   try {
     const { email, password } = req.body;
     const agent = await Agent.findOne({ email });
@@ -17,9 +17,12 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ msg: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ id: agent._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: agent._id }, JWT_SECRET, { expiresIn: "1h" });
 
-    res.json({ token });
+    res.json({
+      token,
+      _id: agent._id.toString(), // Include agent._id in the response
+    });
   } catch (error) {
     res.status(500).json({ msg: "Login failed", error: error.message });
   }
