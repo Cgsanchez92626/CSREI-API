@@ -3,16 +3,26 @@ const express = require("express");
 const router = express.Router();
 const Contact = require("../models/contact");
 
-
 // Index route = GET
 router.get("/", async (req, res) => {
   try {
-    const allContacts = await Contact.find({});
-    res.json(allContacts);
+    const { filter, agentId } = req.query;
+
+    if (!agentId) {
+      return res.status(400).json({ msg: "Agent ID is required" });
+    }
+
+    let query = { agent: agentId };
+
+    if (filter && filter !== "All") {
+      query.contact_status = filter;
+    }
+    // console.log("Query: ", query);
+    const contacts = await Contact.find(query);
+    res.json(contacts);
   } catch (error) {
-    // console.error("Error fetching all contacts:", error);
     res.status(500).json({ msg: "Whoops something went wrong!" });
-    console.log(error)
+    console.log(error);
   }
 });
 
@@ -26,8 +36,10 @@ router.get("/:id", async (req, res) => {
     res.json(oneContact);
   } catch (error) {
     // console.error("Error fetching contact by ID:", error);
-    res.status(500).json({ msg: "Whoops something went wrong with oneContact!" });
-    console.log(error)
+    res
+      .status(500)
+      .json({ msg: "Whoops something went wrong with oneContact!" });
+    console.log(error);
   }
 });
 
@@ -60,9 +72,10 @@ router.put("/:id", async (req, res) => {
     }
     res.json(updateContact);
   } catch (error) {
-    res.status(500).json({msg: "Something went wrong in updateContact!!"})
-    console.log(error)
-}});
+    res.status(500).json({ msg: "Something went wrong in updateContact!!" });
+    console.log(error);
+  }
+});
 
 //Destroy route - DELETE
 router.delete("/:id", async (req, res) => {
@@ -74,9 +87,10 @@ router.delete("/:id", async (req, res) => {
     res.json(deleteContact);
   } catch (error) {
     {
-      res.status(500).json({msg: "Something went wrong in deleteContact!!"})
+      res.status(500).json({ msg: "Something went wrong in deleteContact!!" });
       console.log(error);
+    }
   }
-}});
+});
 
 module.exports = router;

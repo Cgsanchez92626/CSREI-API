@@ -35,7 +35,7 @@ app.use(express.json()); // to allow usage of req.body
 
 //controls access to the API
 app.use(cors({
-  origin: 'http://localhost:5173', // Your frontend's origin
+  origin: 'http://localhost:5173', // My frontend's origin
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 })); 
