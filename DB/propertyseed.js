@@ -74,7 +74,7 @@ const starterProperties = [
         contact_lastname: "White",
       },
       {
-        address: "10532 Burl Ave",
+        address: "10540 Burl Ave",
         city: "Los Angeles",
         state: "CA",
         zipcode: "90043",
