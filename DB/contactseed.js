@@ -6,7 +6,7 @@ const starterContacts = [
     contact_status: "Prospect",
     email: "isherif@nonya.com",
     phone: "310-213-0001",
-    last_contact_dt: "2023/06/23",
+    last_contact_dt: "06-23-2023",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -16,7 +16,7 @@ const starterContacts = [
     contact_status: "Prospect",
     email: "agomez@nonya.com",
     phone: "310-999-0001",
-    last_contact_dt: "2023/07/23",
+    last_contact_dt: "07-23-2023",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -26,7 +26,7 @@ const starterContacts = [
     contact_status: "Prospect",
     email: "maboda64@gmail.com",
     phone: "310-999-4401",
-    last_contact_dt: "2023/07/23",
+    last_contact_dt: "07-23-2023",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -36,7 +36,7 @@ const starterContacts = [
     contact_status: "Research",
     email: "",
     phone: "",
-    last_contact_dt: "2024/02/23",
+    last_contact_dt: "02-23-2024",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -46,7 +46,7 @@ const starterContacts = [
     contact_status: "Lead",
     email: "bmars@nonya.com",
     phone: "310-213-0881",
-    last_contact_dt: "202/06/01",
+    last_contact_dt: "06-01-2023",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -56,7 +56,7 @@ const starterContacts = [
     contact_status: "Lead",
     email: "jwhite@nonya.com",
     phone: "310-988-0001",
-    last_contact_dt: "2023/08/23",
+    last_contact_dt: "08-23-2023",
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
@@ -66,7 +66,7 @@ const starterContacts = [
     contact_status: "Lead",
     email: "ljohnson4@gmail.com",
     phone: "310-922-4401",
-    last_contact_dt: "2024/03/10",
+    last_contact_dt: "03-10-2024",
     agent_email: "jsparrow@rei.com",
   },
   {
@@ -76,7 +76,7 @@ const starterContacts = [
     contact_status: "Research",
     email: "",
     phone: "",
-    last_contact_dt: "2024/02/23",
+    last_contact_dt: "02-23-2024",
     agent_email: "jsparrow@rei.com",
   },
 ];

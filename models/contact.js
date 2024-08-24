@@ -12,13 +12,14 @@ const contactSchema = new mongoose.Schema({
   },
   contact_type: {
     type: String,
+    enum: ["Owner"],
     required: true,
   },
-    contact_status: {
-        type: String,
-        enum: ['Lead', 'Prospect', 'Research', 'DNC'],
-        required: true
-    },
+  contact_status: {
+    type: String,
+    enum: ["Lead", "Prospect", "Research", "DNC"],
+    required: true,
+  },
   email: {
     type: String,
     required: false,
@@ -51,10 +52,11 @@ const contactSchema = new mongoose.Schema({
     validate: {
       validator: function (v) {
         if (v === "") return true; // Allow empty string
-        return /^\d{4}-\d{2}-\d{2}$/.test(v.toISOString().slice(0, 10));
+        return 
+          /^\d{2}-\d{2}-\d{4}$/.test(v.toISOString().slice(0, 10));
       },
       message: (props) =>
-        `${props.value} is not a valid date format! Must be in the format "yyyy-mm-dd"`,
+        `${props.value} is not a valid date format! Must be in the format "mm-dd-yyyy"`,
     },
   },
   agent: {
@@ -74,7 +76,14 @@ contactSchema.set("validate", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["firstname", "lastname", "contact_type",, "contact_status","agent_id"],
+      required: [
+        "firstname",
+        "lastname",
+        "contact_type",
+        ,
+        "contact_status",
+        "agent_id",
+      ],
       properties: {
         firstname: {
           bsonType: "string",
@@ -84,7 +93,7 @@ contactSchema.set("validate", {
           bsonType: "string",
           description: "must be a string and is required",
         },
-          contact_type: {
+        contact_type: {
           bsonType: "string",
           description: "must be a string and is required",
         },
