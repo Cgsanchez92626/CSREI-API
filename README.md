@@ -3,6 +3,10 @@
 This deliverable is for the Capstone Project MongoDB Database Application assignment Back-end portion of the MERN complete project
 This uses  Node.js , Express, and MongoDB
 It uses Mongoose for talking with MongoDB
+Uses JasonWebToken for authentication which provides a token that expires in 1hr
+Uses cors for ensuring request are only allowed to come from the specific origin
+Auth routes are provived for authentication and refreshing the token, set in the frontend to occur every 5 minutes.
+uses bcryptjs - to encrypt password in the DB for security reasons.
 It defines the models for 3 data collections, several validation rules have been defined at the application and at the DB layer to ensure the quality of the data entered.
 Uses seed data to load the 3 collections and establish referential integrity across the 3 collections
 
@@ -11,6 +15,12 @@ Uses seed data to load the 3 collections and establish referential integrity acr
 3. /property/seed - loads propertySchema and uses the contactMap to load values for referential integrity to contactSchema
 4. /contact/update-properties - Creates a map of contact \_ids to arrays of property \_ids, and updates each contact document to include this array of property references.
 
+From the front end:
+The Agent Routes are used in authentication from the Login component
+The Contact and Property Routes are used manage the same via the CRM Component, 
+currently only Contact has full CRUD implemented.
+You can add contact - adds a contact for the agent that is signed in
+Edit a contact - Edits the contact
+Delete Contact - Starts a Mongoose session to manage the transaction, as there is referential integrity between contact and property and protery and contact. The delete transactions will place any properties associated with the deleted contact into the "Admin" Contact reference and will also update the property.contact reference, all toprevent the property records from being orphaned and not wanting to delete them.  
 
-All CRUD routes have been created and tested via Postman: https://sba-318-reic-api-team.postman.co/workspace/SBA-318-REIC-API-Team-Workspace~2a7cd160-f7e4-432d-8903-d297c3b20fa3/request/36935542-59b6e831-1320-4fe7-85ba-e193ac5f3329?action=share&creator=36935542&ctx=documentation - you can use all these paths for testing, leave the old ID's to test the error handling and just change any ID values that you are working with to test successful DB conditions.# CSREI-API
-Endpoints and descriptions:
+The API is deployed via rendor.com and is live at: https://csrei-api.onrender.com
