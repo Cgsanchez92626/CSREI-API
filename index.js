@@ -33,9 +33,12 @@ app.use("/api/protected", authMiddleware, protectedRoutes);
 
 app.use(express.json()); // to allow usage of req.body
 
+// Read CORS origin from environment variable
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173';
+
 //controls access to the API
 app.use(cors({
-  origin: 'http://localhost:5173', // My frontend's origin
+  origin: corsOrigin, // My frontend's origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 })); 
