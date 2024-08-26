@@ -17,7 +17,7 @@ const contactSchema = new mongoose.Schema({
   },
   contact_status: {
     type: String,
-    enum: ["Lead", "Prospect", "Research", "DNC"],
+    enum: ["Admin", "Lead", "Prospect", "Research", "DNC"],
     required: true,
   },
   email: {

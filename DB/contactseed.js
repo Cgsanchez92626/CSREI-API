@@ -30,6 +30,16 @@ const starterContacts = [
     agent_email: "carmensanchezrei@gmail.com",
   },
   {
+    firstname: "Carmen",
+    lastname: "Sanchez",
+    contact_type: "Owner",
+    contact_status: "Admin",
+    email: "carmensanchezrei@gmail.com",
+    phone: "949-355-5899",
+    last_contact_dt: "07-23-2023",
+    agent_email: "carmensanchezrei@gmail.com",
+  },
+  {
     firstname: "Patricia",
     lastname: "Grey",
     contact_type: "Owner",

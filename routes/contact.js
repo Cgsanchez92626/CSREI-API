@@ -1,7 +1,9 @@
 // CONTACT CRUD Routes
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const Contact = require("../models/contact");
+const Property = require("../models/property")
 
 // Index route = GET
 router.get("/", async (req, res) => {
@@ -47,10 +49,16 @@ router.get("/:id", async (req, res) => {
 
 //Create - POST
 router.post("/", async (req, res) => {
-  console.log("Hello from Contact Post Route");
+  // console.log("Hello from Contact Post Route");
   try {
-    console.log("Request Body:", req.body); // Log the request body
-    const { firstname, lastname, contact_type, contact_status, agent } = req.body;
+    // console.log("Request Body:", req.body); // Log the request body
+    const {
+      firstname,
+      lastname,
+      contact_type,
+      contact_status,
+      agent,
+    } = req.body;
     if (!firstname || !lastname || !contact_type || !contact_status || !agent) {
       return res.status(400).json({ msg: "Missing required fields" });
     }
@@ -72,6 +80,7 @@ router.post("/", async (req, res) => {
 
 // Update - PUT/PATCH
 router.put("/:id", async (req, res) => {
+  // console.log("Hello from Contact Update Route");
   try {
     const updateContact = await Contact.findByIdAndUpdate(
       req.params.id,
@@ -90,17 +99,51 @@ router.put("/:id", async (req, res) => {
 
 //Destroy route - DELETE
 router.delete("/:id", async (req, res) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
-    const deleteContact = await Contact.findByIdAndDelete(req.params.id);
+    const contactId = req.params.id;
+
+    const deleteContact = await Contact.findByIdAndDelete(contactId).session(session);
     if (!deleteContact) {
+      await session.abortTransaction();
+      session.endSession();
       return res.status(404).json({ msg: "Contact not found" });
     }
+
+    // Find the 'Admin' contact
+    const adminContact = await Contact.findOne({
+      contact_status: "Admin",
+    }).session(session);
+    if (!adminContact) {
+      await session.abortTransaction();
+      session.endSession();
+      return res.status(404).json({ msg: "Admin contact not found" });
+    }
+
+    // Update related properties to set their contact field to a default (e.g., Admin contact ID) or null
+    await Property.updateMany(
+      { contact: contactId },
+      { $set: { contact: adminContact._id } },
+      { session }
+    );
+    // Update the Admin contact's properties array to include properties from the deleted contact
+    await Contact.findByIdAndUpdate(
+      adminContact._id,
+      { $addToSet: { properties: { $each: deleteContact.properties } } },
+      { session }
+    );
+
+    await session.commitTransaction();
+    session.endSession();
+
     res.json(deleteContact);
   } catch (error) {
-    {
-      res.status(500).json({ msg: "Something went wrong in deleteContact!!" });
-      console.log(error);
-    }
+    await session.abortTransaction();
+    session.endSession();
+    res.status(500).json({ msg: "Something went wrong in deleteContact!!" });
+    console.log(error);
   }
 });
 
