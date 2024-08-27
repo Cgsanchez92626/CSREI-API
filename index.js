@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
   res.send("Home route!");
 });
 
-// Define a global variable to store the agentMap
+// Define a global variable to store the Maps Needed for RI
 let agentMap = {};
 let contactMap = {};
 

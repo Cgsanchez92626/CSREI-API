@@ -7,6 +7,8 @@ Uses JasonWebToken for authentication which provides a token that expires in 1hr
 Uses cors for ensuring request are only allowed to come from the specific origin
 Auth routes are provived for authentication and refreshing the token, set in the frontend to occur every 5 minutes.
 uses bcryptjs - to encrypt password in the DB for security reasons.
+Uses cors - Cross-Origin Resource Sharing needed since backend-frontend are hosted on different domains or ports. It allows your backend to specify who can access its resources.
+Use of dotenv - to use variables to define protected data/credential
 It defines the models for 3 data collections, several validation rules have been defined at the application and at the DB layer to ensure the quality of the data entered.
 Uses seed data to load the 3 collections and establish referential integrity across the 3 collections
 
@@ -22,5 +24,6 @@ currently only Contact has full CRUD implemented.
 You can add contact - adds a contact for the agent that is signed in
 Edit a contact - Edits the contact
 Delete Contact - Starts a Mongoose session to manage the transaction, as there is referential integrity between contact and property and protery and contact. The delete transactions will place any properties associated with the deleted contact into the "Admin" Contact reference and will also update the property.contact reference, all toprevent the property records from being orphaned and not wanting to delete them.  
+Yo can also Add a Property from the frontend. All other routes for property though coded can only be accessed via browser ot tool like Postman.
 
 The API is deployed via rendor.com and is live at: https://csrei-api.onrender.com
